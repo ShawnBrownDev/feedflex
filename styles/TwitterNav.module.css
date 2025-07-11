@@ -1,0 +1,356 @@
+.nav {
+  width: 275px;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: #ffffff;
+  border-right: 1px solid #eff3f4;
+  display: flex;
+  flex-direction: column;
+  padding: 0 12px;
+  z-index: 100;
+}
+
+[data-theme='dark'] .nav {
+  background: #000000;
+  border-right: 1px solid #2f3336;
+}
+
+.navContent {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 12px 0;
+}
+
+.logo {
+  width: 50px;
+  height: 50px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  margin-bottom: 32px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.logo:hover {
+  background: rgba(29, 155, 240, 0.1);
+}
+
+.logo svg {
+  width: 30px;
+  height: 30px;
+  color: #1d9bf0;
+}
+
+.navItems {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.navItem {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 50px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #0f1419;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: left;
+  width: 100%;
+}
+
+[data-theme='dark'] .navItem {
+  color: #e7e9ea;
+}
+
+.navItem:hover {
+  background: rgba(15, 20, 25, 0.1);
+}
+
+[data-theme='dark'] .navItem:hover {
+  background: rgba(231, 233, 234, 0.1);
+}
+
+.navItem.active {
+  font-weight: 700;
+}
+
+.navIcon {
+  width: 26px;
+  height: 26px;
+  margin-right: 20px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.navIcon svg {
+  width: 26px;
+  height: 26px;
+}
+
+.navLabel {
+  font-size: 20px;
+  line-height: 24px;
+}
+
+.tweetButton {
+  background: #1d9bf0;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  padding: 16px 32px;
+  font-size: 17px;
+  font-weight: 700;
+  cursor: pointer;
+  margin: 16px 0 32px 0;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.tweetButton:hover {
+  background: #1a8cd8;
+}
+
+.tweetButtonText {
+  display: block;
+}
+
+.tweetButtonIcon {
+  display: none;
+  width: 24px;
+  height: 24px;
+}
+
+.tweetButtonIcon svg {
+  width: 24px;
+  height: 24px;
+}
+
+.themeToggle {
+  display: flex;
+  align-items: center;
+  padding: 12px 16px;
+  border-radius: 50px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  color: #0f1419;
+  font-size: 20px;
+  font-weight: 400;
+  text-align: left;
+  width: 100%;
+  margin-bottom: 16px;
+}
+
+[data-theme='dark'] .themeToggle {
+  color: #e7e9ea;
+}
+
+.themeToggle:hover {
+  background: rgba(15, 20, 25, 0.1);
+}
+
+[data-theme='dark'] .themeToggle:hover {
+  background: rgba(231, 233, 234, 0.1);
+}
+
+.themeToggle svg {
+  width: 26px;
+  height: 26px;
+}
+
+.profileSection {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 12px 16px;
+  border-radius: 50px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+  margin-top: auto;
+}
+
+.profileSection:hover {
+  background: rgba(15, 20, 25, 0.1);
+}
+
+[data-theme='dark'] .profileSection:hover {
+  background: rgba(231, 233, 234, 0.1);
+}
+
+.profileInfo {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.profileAvatar {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+.profileDetails {
+  display: flex;
+  flex-direction: column;
+}
+
+.profileName {
+  font-size: 15px;
+  font-weight: 700;
+  color: #0f1419;
+  line-height: 20px;
+}
+
+[data-theme='dark'] .profileName {
+  color: #e7e9ea;
+}
+
+.profileUsername {
+  font-size: 15px;
+  color: #536471;
+  line-height: 20px;
+}
+
+[data-theme='dark'] .profileUsername {
+  color: #71767b;
+}
+
+.profileMenu {
+  width: 20px;
+  height: 20px;
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  color: #536471;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+[data-theme='dark'] .profileMenu {
+  color: #71767b;
+}
+
+.profileMenu svg {
+  width: 20px;
+  height: 20px;
+}
+
+/* Responsive Design */
+@media (max-width: 1265px) {
+  .nav {
+    width: 88px;
+    padding: 0 4px;
+  }
+  
+  .navLabel {
+    display: none;
+  }
+  
+  .navIcon {
+    margin-right: 0;
+  }
+  
+  .navItem {
+    padding: 12px;
+    justify-content: center;
+  }
+  
+  .tweetButtonText {
+    display: none;
+  }
+  
+  .tweetButtonIcon {
+    display: block;
+  }
+  
+  .tweetButton {
+    padding: 16px;
+    width: 50px;
+    height: 50px;
+    border-radius: 50%;
+  }
+  
+  .profileDetails {
+    display: none;
+  }
+  
+  .profileMenu {
+    display: none;
+  }
+  
+  .profileSection {
+    justify-content: center;
+    padding: 12px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .nav {
+    width: 68px;
+  }
+  
+  .logo {
+    width: 40px;
+    height: 40px;
+    margin-bottom: 24px;
+  }
+  
+  .logo svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .navItem {
+    padding: 8px;
+  }
+  
+  .navIcon {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .navIcon svg {
+    width: 24px;
+    height: 24px;
+  }
+  
+  .tweetButton {
+    width: 40px;
+    height: 40px;
+    padding: 8px;
+  }
+  
+  .tweetButtonIcon svg {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .profileAvatar {
+    width: 32px;
+    height: 32px;
+  }
+}
+
+@media (max-width: 768px) {
+  .nav {
+    display: none;
+  }
+} 
