@@ -1,0 +1,475 @@
+.post {
+  background: var(--card-bg);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 16px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.post:hover {
+  background: rgba(0, 0, 0, 0.03);
+}
+
+[data-theme='dark'] .post:hover {
+  background: rgba(255, 255, 255, 0.03);
+}
+
+.repostHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  margin-bottom: var(--space-md);
+  padding-bottom: var(--space-sm);
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+}
+
+.repostHeader svg {
+  width: 16px;
+  height: 16px;
+  color: var(--success);
+}
+
+.header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: var(--space-md);
+}
+
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--space-md);
+}
+
+.avatar {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-full);
+  object-fit: cover;
+  border: 2px solid var(--border-color);
+  transition: all 0.2s ease;
+}
+
+.post:hover .avatar {
+  border-color: var(--interactive-primary);
+  transform: scale(1.05);
+}
+
+.userDetails {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-xs);
+}
+
+.nameContainer {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xs);
+  flex-wrap: wrap;
+}
+
+.displayName {
+  font-size: 1rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 1.2;
+}
+
+.verifiedBadge {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 16px;
+  height: 16px;
+  color: var(--interactive-primary);
+}
+
+.verifiedBadge svg {
+  width: 16px;
+  height: 16px;
+}
+
+.username {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-normal);
+}
+
+.separator {
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+}
+
+.timestamp {
+  font-size: 0.875rem;
+  color: var(--text-tertiary);
+  font-weight: var(--font-weight-normal);
+}
+
+.menuContainer {
+  position: relative;
+}
+
+.menuButton {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-md);
+  color: var(--text-tertiary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.menuButton:hover {
+  background: var(--button-ghost-hover);
+  color: var(--text-secondary);
+}
+
+.menuButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.dropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  overflow: hidden;
+  margin-top: 4px;
+}
+
+[data-theme='dark'] .dropdown {
+  box-shadow: 0 16px 32px rgba(255, 255, 255, 0.1);
+}
+
+.dropdownItem {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: var(--text-primary);
+  font-size: 15px;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: background-color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.dropdownItem:hover {
+  background: var(--bg-secondary);
+}
+
+.dropdownItem svg {
+  width: 18px;
+  height: 18px;
+  color: var(--text-tertiary);
+}
+
+.dropdownItem:first-child {
+  color: var(--danger);
+}
+
+.dropdownItem:first-child svg {
+  color: var(--danger);
+}
+
+.dropdownItem:first-child:hover {
+  background: rgba(244, 33, 46, 0.1);
+}
+
+.content {
+  margin-bottom: var(--space-lg);
+}
+
+.content p {
+  font-size: 1rem;
+  line-height: 1.6;
+  color: var(--text-primary);
+  margin: 0 0 var(--space-md) 0;
+}
+
+.imageContainer {
+  margin-top: var(--space-md);
+  border-radius: var(--radius-xl);
+  overflow: hidden;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.imageContainer:hover {
+  transform: scale(1.01);
+}
+
+.postImage {
+  width: 100%;
+  max-height: 400px;
+  object-fit: cover;
+  display: block;
+}
+
+.imageModal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.9);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: var(--z-modal);
+  backdrop-filter: blur(10px);
+}
+
+.imageModalContent {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+}
+
+.imageModalContent img {
+  max-width: 100%;
+  max-height: 100%;
+  object-fit: contain;
+  border-radius: var(--radius-lg);
+}
+
+.closeModal {
+  position: absolute;
+  top: var(--space-md);
+  right: var(--space-md);
+  width: 40px;
+  height: 40px;
+  background: rgba(0, 0, 0, 0.7);
+  color: white;
+  border: none;
+  border-radius: var(--radius-full);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s ease;
+}
+
+.closeModal:hover {
+  background: rgba(0, 0, 0, 0.9);
+  transform: scale(1.1);
+}
+
+.closeModal svg {
+  width: 20px;
+  height: 20px;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--divider-color);
+  max-width: 425px;
+}
+
+.actionButton {
+  display: flex;
+  align-items: center;
+  gap: var(--space-sm);
+  padding: var(--space-sm) var(--space-md);
+  background: transparent;
+  border: none;
+  border-radius: var(--radius-lg);
+  color: var(--text-tertiary);
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.actionButton:hover {
+  background: var(--button-ghost-hover);
+  color: var(--interactive-primary);
+  transform: translateY(-1px);
+}
+
+.actionButton:active {
+  transform: translateY(0);
+}
+
+.actionButton svg {
+  width: 18px;
+  height: 18px;
+  transition: all 0.2s ease;
+}
+
+.actionButton:hover svg {
+  transform: scale(1.1);
+}
+
+.actionText {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-medium);
+  min-width: 16px;
+  text-align: left;
+}
+
+.liked {
+  color: var(--like-color);
+}
+
+.liked:hover {
+  color: var(--like-color);
+  background: rgba(249, 24, 128, 0.1);
+}
+
+.liked svg {
+  color: var(--like-color);
+}
+
+.reposted {
+  color: var(--retweet-color);
+}
+
+.reposted:hover {
+  color: var(--retweet-color);
+  background: rgba(0, 186, 124, 0.1);
+}
+
+.reposted svg {
+  color: var(--retweet-color);
+}
+
+.bookmarked {
+  color: var(--brand-primary);
+}
+
+.bookmarked:hover {
+  color: var(--brand-primary);
+  background: var(--button-ghost-hover);
+}
+
+.bookmarked svg {
+  color: var(--brand-primary);
+}
+
+/* Mobile responsive */
+@media (max-width: 640px) {
+  .post {
+    padding: var(--space-md);
+    margin-bottom: var(--space-md);
+    border-radius: var(--radius-lg);
+  }
+  
+  .header {
+    margin-bottom: var(--space-sm);
+  }
+  
+  .userInfo {
+    gap: var(--space-sm);
+  }
+  
+  .avatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .displayName {
+    font-size: 0.9rem;
+  }
+  
+  .username {
+    font-size: 0.8rem;
+  }
+  
+  .timestamp {
+    font-size: 0.8rem;
+  }
+  
+  .content {
+    margin-bottom: var(--space-md);
+  }
+  
+  .content p {
+    font-size: 0.95rem;
+    margin-bottom: var(--space-sm);
+  }
+  
+  .actions {
+    gap: var(--space-xs);
+    padding-top: var(--space-sm);
+    max-width: none;
+  }
+  
+  .actionButton {
+    padding: var(--space-xs) var(--space-sm);
+    font-size: 0.8rem;
+  }
+  
+  .actionButton svg {
+    width: 16px;
+    height: 16px;
+  }
+  
+  .actionText {
+    font-size: 0.8rem;
+  }
+  
+  .nameContainer {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-xs);
+  }
+  
+  .nameContainer > div:first-child {
+    display: flex;
+    align-items: center;
+    gap: var(--space-xs);
+  }
+  
+  .verifiedBadge {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .verifiedBadge svg {
+    width: 14px;
+    height: 14px;
+  }
+  
+  .postImage {
+    max-height: 300px;
+  }
+}
+
+/* Tablet responsive */
+@media (max-width: 768px) and (min-width: 641px) {
+  .post {
+    padding: var(--space-lg);
+  }
+  
+  .avatar {
+    width: 44px;
+    height: 44px;
+  }
+  
+  .postImage {
+    max-height: 350px;
+  }
+}
+  

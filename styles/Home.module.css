@@ -1,0 +1,321 @@
+/* Twitter App Layout */
+.app {
+  min-height: 100vh;
+  background: var(--bg-primary);
+  display: flex;
+  justify-content: center;
+  padding: 0 20px;
+}
+
+/* Main Content */
+.main {
+  max-width: 1200px;
+  width: 100%;
+  display: flex;
+  min-height: 100vh;
+  gap: 30px;
+}
+
+.mainContent {
+  flex: 1;
+  display: flex;
+  min-height: 100vh;
+  gap: 30px;
+}
+
+.feedContainer {
+  flex: 1;
+  max-width: 600px;
+  min-width: 500px;
+  border-left: 1px solid var(--border-color);
+  border-right: 1px solid var(--border-color);
+  min-height: 100vh;
+}
+
+/* Feed Header */
+.feedHeader {
+  position: sticky;
+  top: 0;
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  z-index: 10;
+  padding: 0 16px;
+  height: 53px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  border-bottom: 1px solid var(--border-color);
+}
+
+[data-theme='dark'] .feedHeader {
+  background: rgba(0, 0, 0, 0.85);
+}
+
+.feedTitle {
+  font-size: 20px;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin: 0;
+  line-height: 24px;
+}
+
+.headerActions {
+  position: relative;
+}
+
+.settingsButton {
+  width: 34px;
+  height: 34px;
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--text-primary);
+  transition: background-color 0.2s;
+}
+
+.settingsButton:hover {
+  background: rgba(15, 20, 25, 0.1);
+}
+
+[data-theme='dark'] .settingsButton:hover {
+  background: rgba(231, 233, 234, 0.1);
+}
+
+.settingsButton svg {
+  width: 20px;
+  height: 20px;
+}
+
+.devMenu {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background: var(--card-bg);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.15);
+  min-width: 200px;
+  z-index: 1000;
+  overflow: hidden;
+  margin-top: 8px;
+}
+
+.devMenuItem {
+  width: 100%;
+  padding: 12px 16px;
+  background: transparent;
+  border: none;
+  text-align: left;
+  color: var(--text-primary);
+  font-size: 14px;
+  cursor: pointer;
+  transition: background-color 0.2s;
+}
+
+.devMenuItem:hover {
+  background: var(--bg-secondary);
+}
+
+.devMenuInfo {
+  padding: 8px 16px;
+  border-top: 1px solid var(--border-color);
+  background: var(--bg-secondary);
+}
+
+.devMenuInfo small {
+  color: var(--text-tertiary);
+  font-size: 12px;
+}
+
+/* Feed Tabs */
+.feedTabs {
+  display: flex;
+  border-bottom: 1px solid var(--border-color);
+  background: var(--bg-primary);
+  position: sticky;
+  top: 53px;
+  z-index: 5;
+}
+
+.feedTab {
+  flex: 1;
+  padding: 16px;
+  background: transparent;
+  border: none;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  position: relative;
+}
+
+.feedTab:hover {
+  background: rgba(15, 20, 25, 0.03);
+  color: var(--text-primary);
+}
+
+[data-theme='dark'] .feedTab:hover {
+  background: rgba(231, 233, 234, 0.03);
+}
+
+.feedTab.active {
+  color: var(--text-primary);
+  font-weight: 700;
+}
+
+.feedTab.active::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 4px;
+  background: var(--brand-primary);
+  border-radius: 2px;
+  transition: all 0.2s ease;
+}
+
+.feedTab:not(.active):hover::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 56px;
+  height: 2px;
+  background: var(--text-tertiary);
+  border-radius: 2px;
+  opacity: 0.5;
+}
+
+/* Feed - Posts are styled individually */
+
+/* Loading and Empty States */
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+}
+
+.loadingSpinner {
+  width: 32px;
+  height: 32px;
+  border: 3px solid var(--border-color);
+  border-top: 3px solid var(--brand-primary);
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 16px;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.emptyState {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 60px 20px;
+  color: var(--text-secondary);
+  text-align: center;
+}
+
+.emptyState p {
+  font-size: 16px;
+  margin: 0;
+}
+
+/* Responsive Design */
+@media (max-width: 1265px) {
+  .app {
+    padding: 0 15px;
+  }
+  
+  .main {
+    max-width: 1000px;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 1024px) {
+  .app {
+    padding: 0 10px;
+  }
+  
+  .main {
+    max-width: 900px;
+    gap: 15px;
+  }
+  
+  .mainContent {
+    gap: 15px;
+  }
+}
+
+@media (max-width: 768px) {
+  .app {
+    padding: 0;
+  }
+  
+  .main {
+    flex-direction: column;
+    gap: 0;
+  }
+  
+  .mainContent {
+    flex-direction: column;
+  }
+  
+  .feedContainer {
+    border-left: none;
+    border-right: none;
+  }
+  
+  .feedHeader {
+    padding: 0 16px;
+  }
+  
+  .feedTitle {
+    font-size: 18px;
+  }
+}
+
+@media (max-width: 640px) {
+  .feedHeader {
+    padding: 0 12px;
+    height: 48px;
+  }
+  
+  .feedTitle {
+    font-size: 16px;
+  }
+  
+  .feedTab {
+    padding: 12px;
+    font-size: 14px;
+  }
+}
+
+/* Remove old styles that are no longer needed */
+.header,
+.headerContent,
+.brand,
+.logo,
+.appName,
+.feedSubtitle,
+.loadMore,
+.loadMoreButton {
+  display: none;
+}
+
