@@ -45,7 +45,6 @@ const Post: React.FC<PostProps> = ({
   repostedBy,
   repostedByDisplayName,
   likeCount: initialLikeCount = Math.floor(Math.random() * 50) + 1,
-  commentCount = Math.floor(Math.random() * 10),
   repostCount = Math.floor(Math.random() * 20),
   onDelete,
   onRepost,
@@ -88,10 +87,6 @@ const Post: React.FC<PostProps> = ({
 
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked)
-  }
-
-  const handleComment = () => {
-    // console.log('Comment clicked for post:', id)
   }
 
   const handleShare = () => {
@@ -367,7 +362,8 @@ const Post: React.FC<PostProps> = ({
             displayName={isRepost && originalDisplayName ? originalDisplayName : (displayName || username)}
             username={isRepost && originalAuthor ? originalAuthor : username}
             avatar={getAvatarUrl(isRepost && originalAvatar ? originalAvatar : avatar)}
-            followers={likeCount.toString()}
+            followers={typeof repostCount === 'number' ? repostCount : 0}
+            following={0}
             isVerified={isVerified}
             isFollowing={false}
           />
