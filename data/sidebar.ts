@@ -1,4 +1,4 @@
-import { users, getUserById, formatFollowerCount } from './users'
+import { users, getUserById } from './users'
 import { FollowingService } from './following'
 
 export const trendingTopics = [
@@ -58,7 +58,10 @@ export type SuggestedUser = {
   displayName: string
   avatar: string
   isVerified: boolean
-  followers: string
+  followers: number
+  following: number
+  bio?: string
+  links?: { label: string; url: string }[]
   isFollowing: boolean
 }
 
@@ -69,22 +72,23 @@ export const getSuggestedUsers = (currentUserId: string = 'sb-studio'): Suggeste
     users.map(u => u.id)
   )
   
-  // Get the first 3 suggested users
+  // Always use the latest user data
   return suggestedUserIds.slice(0, 3).map(userId => {
     const user = getUserById(userId)
     if (!user) return null
-    
     return {
       id: user.id,
       username: user.username,
       displayName: user.displayName,
       avatar: user.avatar,
       isVerified: user.isVerified,
-      followers: formatFollowerCount(user.followers),
+      followers: user.followers,
+      following: user.following,
+      bio: user.bio,
+      links: user.website ? [{ label: user.website.replace(/^https?:\/\//, ''), url: user.website }] : [],
       isFollowing: FollowingService.isFollowing(currentUserId, userId)
     }
   }).filter(Boolean) as SuggestedUser[]
 }
 
-// Legacy export for backward compatibility
 export const suggestedUsers = getSuggestedUsers()

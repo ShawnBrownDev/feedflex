@@ -252,7 +252,7 @@
   .app {
     padding: 0 10px;
   }
-  
+
   .main {
     max-width: 900px;
     gap: 15px;
@@ -267,16 +267,16 @@
   .app {
     padding: 0;
   }
-  
+
   .main {
     flex-direction: column;
     gap: 0;
   }
-  
+
   .mainContent {
     flex-direction: column;
   }
-  
+
   .feedContainer {
     border-left: none;
     border-right: none;
@@ -285,7 +285,7 @@
   .feedHeader {
     padding: 0 16px;
   }
-  
+
   .feedTitle {
     font-size: 18px;
   }
@@ -296,7 +296,7 @@
     padding: 0 12px;
     height: 48px;
   }
-  
+
   .feedTitle {
     font-size: 16px;
   }
@@ -317,5 +317,5 @@
 .loadMore,
 .loadMoreButton {
   display: none;
-}
+  }
 
