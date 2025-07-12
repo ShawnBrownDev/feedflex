@@ -58,9 +58,6 @@ const PostComposer: React.FC<PostComposerProps> = ({ onPost, currentUser }) => {
           alt={`${currentUser.username}'s avatar`}
           size={48}
           className={styles.avatar}
-          onError={(e) => {
-            e.currentTarget.src = `https://ui-avatars.com/api/?name=${currentUser.username}&background=3b82f6&color=fff&size=48`
-          }}
         />
         <div className={styles.inputContainer}>
                       <textarea
