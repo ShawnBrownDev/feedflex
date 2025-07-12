@@ -230,13 +230,24 @@ const Home: NextPage<Props> = ({ theme, setTheme }) => {
       // Remove repost
       const originalPost = currentPosts.find(post => post.id === postId)
       if (originalPost) {
+        // Remove the repost object
         const updatedPosts = currentPosts.filter(post => {
           return !(post.isRepost && 
                   post.repostedBy === currentUser.username && 
                   post.originalAuthor === originalPost.username)
         })
-        setCurrentPosts(updatedPosts)
-        
+        // Check if the original post is present in the feed
+        const hasOriginal = updatedPosts.some(post => post.id === postId && !post.isRepost)
+        let finalPosts = updatedPosts
+        if (!hasOriginal) {
+          // Try to find the original post in the initialPosts or followingPosts
+          const allSources = [...initialPosts, ...followingPosts]
+          const orig = allSources.find(post => post.id === postId)
+          if (orig) {
+            finalPosts = [orig, ...updatedPosts]
+          }
+        }
+        setCurrentPosts(finalPosts)
         // Remove from user reposts tracking
         setUserReposts(prev => {
           const newSet = new Set(prev)
@@ -262,7 +273,7 @@ const Home: NextPage<Props> = ({ theme, setTheme }) => {
     setActiveTab(tab)
   }
 
-      return (
+  return (
       <div className={styles.app}>
       <main className={styles.main}>
         <Navigation theme={theme} setTheme={setTheme} />
@@ -346,11 +357,11 @@ const Home: NextPage<Props> = ({ theme, setTheme }) => {
                   ))
                 )
               })()}
-            </section>
+      </section>
           </div>
           <Sidebar />
         </div>
-      </main>
+    </main>
     </div>
   )
 }

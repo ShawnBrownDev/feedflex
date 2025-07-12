@@ -39,23 +39,18 @@
 }
 
 .userInfo {
-  display: flex;
+    display: flex;
   align-items: center;
   gap: var(--space-md);
-}
-
-.avatar {
-  width: 48px;
-  height: 48px;
+  }
+  
+  .avatar {
+    width: 48px;
+    height: 48px;
   border-radius: var(--radius-full);
   object-fit: cover;
   border: 2px solid var(--border-color);
   transition: all 0.2s ease;
-}
-
-.post:hover .avatar {
-  border-color: var(--interactive-primary);
-  transform: scale(1.05);
 }
 
 .userDetails {
@@ -220,7 +215,7 @@
 .postImage {
   width: 100%;
   max-height: 400px;
-  object-fit: cover;
+    object-fit: cover;
   display: block;
 }
 
@@ -368,6 +363,29 @@
   color: var(--brand-primary);
 }
 
+.animated {
+  animation: bounce-pop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1) both;
+}
+
+@keyframes bounce-pop {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  30% {
+    transform: scale(1.25);
+    opacity: 0.85;
+  }
+  60% {
+    transform: scale(0.95);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1);
+    opacity: 1;
+  }
+}
+
 /* Mobile responsive */
 @media (max-width: 640px) {
   .post {
@@ -471,5 +489,5 @@
   .postImage {
     max-height: 350px;
   }
-}
+  }
   

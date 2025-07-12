@@ -1,0 +1,229 @@
+.popover {
+  position: relative;
+  min-width: 260px;
+  max-width: 340px;
+  background: #181c20;
+  border: 1.5px solid #23272f;
+  border-radius: 18px;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.22);
+  padding: 28px 28px 22px 28px;
+  z-index: 200;
+  animation: popover-fade-in 0.25s cubic-bezier(0.34, 1.56, 0.64, 1);
+  transition: box-shadow 0.18s, transform 0.18s;
+}
+.popover:focus, .popover:hover {
+  box-shadow: 0 12px 40px rgba(0,0,0,0.28);
+  transform: translateY(-2px) scale(1.012);
+}
+
+@keyframes popover-fade-in {
+  0% {
+    opacity: 0;
+    transform: translateY(10px) scale(0.98);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+.arrow {
+  position: absolute;
+  top: -8px;
+  left: 36px;
+  width: 18px;
+  height: 18px;
+  background: transparent;
+  z-index: 201;
+}
+.arrow::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  transform: translateX(-50%) rotate(45deg);
+  width: 14px;
+  height: 14px;
+  background: #181c20;
+  border-left: 1.5px solid #23272f;
+  border-top: 1.5px solid #23272f;
+  box-shadow: -2px -2px 8px rgba(0,0,0,0.10);
+}
+
+.profileTopRow {
+  display: flex;
+  align-items: flex-start;
+  gap: 18px;
+  margin-bottom: 8px;
+}
+.avatar {
+  width: 56px !important;
+  height: 56px !important;
+  border-radius: 50%;
+  border: 3px solid #fff;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.10);
+  background: #fff;
+  object-fit: cover;
+  animation: avatar-pop-in 0.32s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+@keyframes avatar-pop-in {
+  0% { transform: scale(0.85); opacity: 0.2; }
+  100% { transform: scale(1); opacity: 1; }
+}
+.profileMain {
+  flex: 1;
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+.nameRow {
+  display: flex;
+  align-items: center;
+  gap: 7px;
+}
+.displayName {
+  font-weight: 700;
+  font-size: 18px;
+  color: #fff;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.verifiedBadge {
+  color: var(--interactive-primary);
+  display: flex;
+  align-items: center;
+}
+.username {
+  color: #aeb4bc;
+  font-size: 15px;
+  margin-bottom: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.bio {
+  color: #e3e6ea;
+  font-size: 15px;
+  margin-bottom: 2px;
+  word-break: break-word;
+}
+.links {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  margin-bottom: 2px;
+}
+.link {
+  color: #1da1f2;
+  font-size: 15px;
+  text-decoration: none;
+  transition: text-decoration 0.15s, color 0.15s;
+  word-break: break-all;
+}
+.link:hover {
+  text-decoration: underline;
+  color: #2496e6;
+}
+.attribution {
+  color: #b2b8c2;
+  font-size: 14px;
+  margin-bottom: 2px;
+}
+.attributionHandle {
+  color: #1da1f2;
+  text-decoration: none;
+  font-weight: 500;
+}
+.attributionHandle:hover {
+  text-decoration: underline;
+}
+.statsRow {
+  display: flex;
+  gap: 22px;
+  margin: 18px 0 0 0;
+  padding-bottom: 2px;
+}
+.stat {
+  color: #b2b8c2;
+  font-size: 15px;
+  font-weight: 400;
+}
+.statNumber {
+  color: #fff;
+  font-weight: 700;
+  font-size: 16px;
+  margin-right: 2px;
+}
+.actions {
+  margin-top: 18px;
+  text-align: right;
+}
+.followBtn {
+  padding: 7px 22px;
+  border-radius: 9999px;
+  border: none;
+  background: #1da1f2;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  transition: background 0.2s, box-shadow 0.18s;
+  box-shadow: 0 1px 4px rgba(29,161,242,0.08);
+}
+.followBtn:hover {
+  background: #2496e6;
+}
+.unfollowBtn {
+  padding: 7px 22px;
+  border-radius: 9999px;
+  border: 1.5px solid #23272f;
+  background: transparent;
+  color: #fff;
+  font-weight: 600;
+  cursor: pointer;
+  font-size: 15px;
+  transition: border 0.2s, color 0.2s;
+}
+.unfollowBtn:hover {
+  border-color: #f4212e;
+  color: #f4212e;
+}
+.skeletonAvatar {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: #23272f;
+  margin-bottom: 10px;
+}
+.skeletonText {
+  height: 14px;
+  background: #23272f;
+  border-radius: 6px;
+  margin-bottom: 8px;
+}
+
+@media (max-width: 480px) {
+  .popover {
+    min-width: 180px;
+    max-width: 98vw;
+    padding: 16px 8px 12px 8px;
+  }
+  .profileTopRow {
+    gap: 10px;
+  }
+  .avatar {
+    width: 44px !important;
+    height: 44px !important;
+  }
+  .displayName {
+    font-size: 16px;
+  }
+  .statNumber {
+    font-size: 15px;
+  }
+  .stat {
+    font-size: 13px;
+  }
+} 

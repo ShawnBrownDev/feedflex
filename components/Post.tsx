@@ -2,6 +2,8 @@ import React, { useState, useRef, useEffect } from 'react'
 import styles from '../styles/Post.module.css'
 import Avatar from './Avatar'
 import PostImage from './PostImage'
+import clsx from 'clsx'
+import ProfilePopover from './ProfilePopover';
 
 type PostProps = {
   id: number
@@ -43,7 +45,6 @@ const Post: React.FC<PostProps> = ({
   repostedBy,
   repostedByDisplayName,
   likeCount: initialLikeCount = Math.floor(Math.random() * 50) + 1,
-  commentCount = Math.floor(Math.random() * 10),
   repostCount = Math.floor(Math.random() * 20),
   onDelete,
   onRepost,
@@ -58,16 +59,25 @@ const Post: React.FC<PostProps> = ({
   const [showFullImage, setShowFullImage] = useState(false)
   const [showDropdown, setShowDropdown] = useState(false)
   const dropdownRef = useRef<HTMLDivElement>(null)
+  const [likeAnim, setLikeAnim] = useState(false)
+  const [repostAnim, setRepostAnim] = useState(false)
+  const [showPopover, setShowPopover] = useState(false);
+  const [popoverPos, setPopoverPos] = useState<{top: number, left: number} | null>(null);
+  const popoverTimeout = useRef<NodeJS.Timeout | null>(null);
 
   const handleLike = () => {
     setIsLiked(!isLiked)
     setLikeCount(prev => isLiked ? prev - 1 : prev + 1)
+    setLikeAnim(true)
+    setTimeout(() => setLikeAnim(false), 400)
   }
 
   const handleRepost = () => {
     const newRepostedState = !isReposted
     setIsReposted(newRepostedState)
     setCurrentRepostCount(prev => isReposted ? prev - 1 : prev + 1)
+    setRepostAnim(true)
+    setTimeout(() => setRepostAnim(false), 400)
     
     // Call the callback to handle repost in parent component
     if (onRepost) {
@@ -77,10 +87,6 @@ const Post: React.FC<PostProps> = ({
 
   const handleBookmark = () => {
     setIsBookmarked(!isBookmarked)
-  }
-
-  const handleComment = () => {
-    // console.log('Comment clicked for post:', id)
   }
 
   const handleShare = () => {
@@ -98,6 +104,22 @@ const Post: React.FC<PostProps> = ({
     e.stopPropagation()
     setShowDropdown(!showDropdown)
   }
+
+  const handleUserMouseEnter = (e: React.MouseEvent) => {
+    if (popoverTimeout.current) clearTimeout(popoverTimeout.current);
+    const rect = (e.target as HTMLElement).getBoundingClientRect();
+    setPopoverPos({ top: rect.bottom + window.scrollY + 4, left: rect.left + window.scrollX });
+    setShowPopover(true);
+  };
+  const handleUserMouseLeave = () => {
+    popoverTimeout.current = setTimeout(() => setShowPopover(false), 150);
+  };
+  const handlePopoverMouseEnter = () => {
+    if (popoverTimeout.current) clearTimeout(popoverTimeout.current);
+  };
+  const handlePopoverMouseLeave = () => {
+    setShowPopover(false);
+  };
 
   // Check if this post belongs to the current user
   const isOwnPost = currentUser === username
@@ -157,19 +179,22 @@ const Post: React.FC<PostProps> = ({
 
       <div className={styles.header}>
         <div className={styles.userInfo}>
-          <Avatar 
-            src={getAvatarUrl(isRepost && originalAvatar ? originalAvatar : avatar)} 
-            alt={`${isRepost && originalAuthor ? originalAuthor : username}'s avatar`} 
-            size={48}
-            className={styles.avatar}
-            onError={(e) => {
-              const name = isRepost && originalDisplayName ? originalDisplayName : (displayName || username)
-              e.currentTarget.src = `https://ui-avatars.com/api/?name=${encodeURIComponent(name)}&background=1d9bf0&color=fff&size=48&rounded=true`
-            }}
-          />
+          <span onMouseEnter={handleUserMouseEnter} onMouseLeave={handleUserMouseLeave} style={{ display: 'inline-flex' }}>
+            <Avatar 
+              src={getAvatarUrl(isRepost && originalAvatar ? originalAvatar : avatar)} 
+              alt={`${isRepost && originalAuthor ? originalAuthor : username}'s avatar`} 
+              size={48}
+              className={styles.avatar}
+            />
+          </span>
           <div className={styles.userDetails}>
             <div className={styles.nameContainer}>
-              <h3 className={styles.displayName}>
+              <h3 
+                className={styles.displayName}
+                onMouseEnter={handleUserMouseEnter}
+                onMouseLeave={handleUserMouseLeave}
+                style={{ cursor: 'pointer' }}
+              >
                 {isRepost && originalDisplayName ? originalDisplayName : (displayName || username)}
               </h3>
               {isVerified && (
@@ -260,20 +285,22 @@ const Post: React.FC<PostProps> = ({
 
       <div className={styles.actions}>
         <button 
-          className={styles.actionButton}
-          onClick={handleComment}
-          aria-label="Comment on post"
+          className={clsx(styles.actionButton, likeAnim && styles.animated)}
+          onClick={handleLike}
+          aria-label="Like post"
+          title="Like"
         >
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-            <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z" />
+          <svg viewBox="0 0 24 24" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
+            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
           </svg>
-          <span className={styles.actionText}>{formatCount(commentCount)}</span>
+          <span className={styles.actionText}>{formatCount(likeCount)}</span>
         </button>
 
         <button 
-          className={`${styles.actionButton} ${isReposted ? styles.reposted : ''}`}
+          className={clsx(styles.actionButton, repostAnim && styles.animated)}
           onClick={handleRepost}
-          aria-label={isReposted ? 'Undo repost' : 'Repost'}
+          aria-label="Repost"
+          title="Repost"
         >
           <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
             <polyline points="17,1 21,5 17,9" />
@@ -285,20 +312,10 @@ const Post: React.FC<PostProps> = ({
         </button>
 
         <button 
-          className={`${styles.actionButton} ${isLiked ? styles.liked : ''}`}
-          onClick={handleLike}
-          aria-label={isLiked ? 'Unlike post' : 'Like post'}
-        >
-          <svg viewBox="0 0 24 24" fill={isLiked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
-            <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
-          </svg>
-          <span className={styles.actionText}>{formatCount(likeCount)}</span>
-        </button>
-
-        <button 
           className={`${styles.actionButton} ${isBookmarked ? styles.bookmarked : ''}`}
           onClick={handleBookmark}
-          aria-label={isBookmarked ? 'Remove bookmark' : 'Bookmark post'}
+          aria-label="Bookmark post"
+          title="Bookmark"
         >
           <svg viewBox="0 0 24 24" fill={isBookmarked ? 'currentColor' : 'none'} stroke="currentColor" strokeWidth="2">
             <path d="M19 21l-7-5-7 5V5a2 2 0 0 1 2-2h10a2 2 0 0 1 2 2z" />
@@ -333,6 +350,23 @@ const Post: React.FC<PostProps> = ({
               </svg>
             </button>
           </div>
+        </div>
+      )}
+      {showPopover && popoverPos && (
+        <div
+          style={{ position: 'absolute', top: popoverPos.top, left: popoverPos.left, zIndex: 2000 }}
+          onMouseEnter={handlePopoverMouseEnter}
+          onMouseLeave={handlePopoverMouseLeave}
+        >
+          <ProfilePopover
+            displayName={isRepost && originalDisplayName ? originalDisplayName : (displayName || username)}
+            username={isRepost && originalAuthor ? originalAuthor : username}
+            avatar={getAvatarUrl(isRepost && originalAvatar ? originalAvatar : avatar)}
+            followers={typeof repostCount === 'number' ? repostCount : 0}
+            following={0}
+            isVerified={isVerified}
+            isFollowing={false}
+          />
         </div>
       )}
     </article>
